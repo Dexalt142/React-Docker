@@ -1,0 +1,21 @@
+name: Build and Push
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Build and Push Docker Image
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with: 
+          image: dexalt142/react-docker
+          tags: latest
+          registry: docker.io
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASS }}
